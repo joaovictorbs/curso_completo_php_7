@@ -1,5 +1,8 @@
 <?php
 
-echo "Meu primeiro código PHP! Hello World";
+$nome = 'Hcode';    //string
+
+// echo $nome;
+var_dump($nome);
 
 ?>
