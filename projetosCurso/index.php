@@ -1,28 +1,27 @@
 <?php
-//                              comentario de linha
-/*                              comentario de blocos  */
 
-$anoNascimento = 2002;          //camelCase
-$nome = 'João';
-$sobrenome = 'Claudio'; 
-//$1nome = '';                  erro por conta do numero no inicio
-$_nome = '';                    //underline é um caractere especial permitido
-//$this                         variavel interna, nao pode ser usada para simples associacao
+$nome = "João";             //string
+$nome = 'Roberto';
+$ano = 1990;                //int
+$salario = 5500.80;         //float
+$bloqueado = false;         //boolean
 
-$nomeCompleto = $nome . " " . $sobrenome;       //usamos . para concatenacao 
-echo $nomeCompleto;
+//=============
+
+$frutas = array('banana', 'abacaxi', 19, 7.80, true);   //array
+echo $frutas[1];                                        //abacaxi
 echo "<br />";
-// exit;                        paralisa execucao do php
 
+$nascimento = new DateTime();                           //objeto
+var_dump($nascimento);
+echo "<br />";
 
-$nomeFinal = 'Marcelo';
-echo $nomeFinal;
-echo "<br />";                  //quebra linha
+//=============
 
-// unset($nomeFinal, $nome1);   retira variavel da memoria
+$arquivo = fopen("index.php", "r");     //file open, abre arquivo e apenas lê
+var_dump($arquivo);
+echo "<br />";
 
-if (isset($nomeFinal)) {         //verifica se variavel existe
-    echo $nomeFinal;
-}
+$nulo = null;                           //nulo
 
 ?>
