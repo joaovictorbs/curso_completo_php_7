@@ -1,27 +1,18 @@
 <?php
 
-$nome = "João";             //string
-$nome = 'Roberto';
-$ano = 1990;                //int
-$salario = 5500.80;         //float
-$bloqueado = false;         //boolean
+$nome = (int)$_GET["a"];      //variavel pre-definida | superglobais  | array de chaves
+$idade = (int)$_GET["b"];
 
-//=============
-
-$frutas = array('banana', 'abacaxi', 19, 7.80, true);   //array
-echo $frutas[1];                                        //abacaxi
+var_dump($nome); 
+echo "<br />";
+var_dump($idade); 
 echo "<br />";
 
-$nascimento = new DateTime();                           //objeto
-var_dump($nascimento);
+$ip = $_SERVER["REMOTE_ADDR"];        //captura IP
+$script = $_SERVER["SCRIPT_NAME"];     // captura nome arquivo
+
+echo $ip;
 echo "<br />";
-
-//=============
-
-$arquivo = fopen("index.php", "r");     //file open, abre arquivo e apenas lê
-var_dump($arquivo);
-echo "<br />";
-
-$nulo = null;                           //nulo
+echo $script;
 
 ?>
