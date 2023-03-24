@@ -1,18 +1,22 @@
 <?php
 
-$nome = (int)$_GET["a"];      //variavel pre-definida | superglobais  | array de chaves
-$idade = (int)$_GET["b"];
+$nome = "Glaucio";
+$idade = 29;
 
-var_dump($nome); 
-echo "<br />";
-var_dump($idade); 
-echo "<br />";
+function teste() {  //comeco escopo funcao
+    global $idade;
+    echo $nome;
+    echo $idade;
+}                   //fim escopo funcao
 
-$ip = $_SERVER["REMOTE_ADDR"];        //captura IP
-$script = $_SERVER["SCRIPT_NAME"];     // captura nome arquivo
+function teste2() {
 
-echo $ip;
-echo "<br />";
-echo $script;
+    $nome = "João";
 
+    echo "<br />";
+    echo $nome." agora no teste2. ";
+}
+
+teste();
+teste2();
 ?>
