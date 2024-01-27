@@ -1,19 +1,13 @@
 <?php
 
-define("SERVIDOR", "127.0.0.1"); #nome e valor da constante
-define("BANCO_DADOS", [
-    '127.0.0.1',
-    'root',
-    'password',
-    'teste'
-]); #constante em array
+session_start(); #inicia sessao
 
+$_SESSION["nome"] = "teste"; #define sessao e atribui valor 
 
-echo SERVIDOR;
-echo "<br>";
-print_r(BANCO_DADOS);
-echo "<br>";
-echo(PHP_VERSION);  #constante padrão php
-echo "<br>";
-echo(DIRECTORY_SEPARATOR);  #barra /
+echo $_SESSION["nome"];
+
+session_unset();   #remove variavel de sessao
+session_destroy();   #destroi variavel de sessao
+
+echo $_SESSION["nome"];
 ?>
