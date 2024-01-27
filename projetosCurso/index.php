@@ -1,26 +1,39 @@
 <?php
 
-$qualSuaIdade = 30;
+$diaSemana = date("w");
 
-$idadeCrianca = 12;
-$idadeMaior = 18;
-$idadeMelhor = 65;
+switch ($diaSemana) {
+    case 0:
+        echo "Domingo";
+        break;  #interrompe o switch
+    
+    case 1:
+        echo "Segunda-Feira";
+        break;
+    
+    case 2:
+        echo "Terça-Feira";
+        break;
+    
+    case 3:
+        echo "Quarta-Feira";
+        break;
+    
+    case 4:
+        echo "Quinta-Feira";
+        break;
+    
+    case 5:
+        echo "Sexta-Feira";
+        break;
+    
+    case 6:
+        echo "Sábado";
+        break;
 
-if($qualSuaIdade < $idadeCrianca){       // se for true
-    echo "Criança";
+    default:    #caso nao caia em nenhum caso, entra no default
+        echo "Data inválida!";
+        break;
 }
-elseif($qualSuaIdade < $idadeMaior) {    // se a primeira regra nao for true                       
-    echo "Adolescente";
-}
-elseif($qualSuaIdade < $idadeMelhor){
-    echo "Adulto";
-}
-else {                                   // se nao for true
-    echo "Idoso";
-}
-
-echo "<br>";
-
-echo ($qualSuaIdade < $idadeMaior) ? "Menor de Idade" : "Maior de Idade"; //operador ternario
 
 ?>
