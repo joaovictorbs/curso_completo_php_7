@@ -1,19 +1,18 @@
 <?php
 
-function ola() {    # retorna string
-    return "Olá mundo!<br>";
+function ola($texto, $periodo = "Bom dia") {    # define parametro obrigatorio / define valor padrao
+    return "$periodo<br>Olá $texto!<br><br>";
 }
 
-echo ola();
-$frase = ola();
-echo strlen($frase);
-
-echo "<br>";
-
-function salario() {
-    return 946.00;
+function teste() {
+    return func_get_args(); # exibe os parametros recebidos
 }
 
-echo "José recebeu 3 salários: ".number_format(salario() * 3, 2, ',', '.');
+echo ola("teste");
+echo ola("João", "Boa noite");
+echo ola("teste");
+
+var_dump(teste("texto", 123));
+
 
 ?>
