@@ -1,13 +1,14 @@
 <?php
 
-session_start(); #inicia sessao
+session_id('7u0d01a1n81s2sneu893nvhust'); # define id de sessao fixo
 
-$_SESSION["nome"] = "teste"; #define sessao e atribui valor 
+session_start();
 
-echo $_SESSION["nome"];
+echo session_id(); # funcao id de sessao
 
-session_unset();   #remove variavel de sessao
-session_destroy();   #destroi variavel de sessao
+echo "<br>";
 
-echo $_SESSION["nome"];
+session_regenerate_id(); # gera um novo id de sessao
+
+echo session_id();
 ?>
