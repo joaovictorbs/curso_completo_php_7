@@ -1,40 +1,16 @@
 <?php
 
-$a = 10;
-
-function trocaValor($a) {
-    $a += 50;
-
-    return $a;
+function soma(int ...$valores):float {    # declara int / todos os parametros serao array e obtidos de uma vez so / declara retorno como stirng
+    return array_sum($valores); # soma conteudo do array
 }
 
-echo $a. "<br>";
-echo trocaValor($a). "<br>";
-echo $a. "<br>"; # o que acontece na funcao fica na funcao, o nome da variavel não significa que é a mesma da funcao
-
-echo "<br><br>";
-
-$b = 10;
-
-function trocaValorReferencia(&$b) { # parametro por referencia
-    $b += 50;
-
-    return $b;
-}
-
-echo $b. "<br>";
-echo trocaValorReferencia($b). "<br>";
-echo $b. "<br>"; # o valor altera pois passou o valor por referencia
-echo trocaValorReferencia($b). "<br>";
-echo $b. "<br>"; 
-
-echo "<br><br>";
-
-$pessoa = ['nome' => 'João', 'idade' => 20];
-
-foreach ($pessoa as &$value) {  # o valor passa por referencia
-    if (gettype($value) === 'integer') $value += 10;    # gettype verifica tipo do valor
-    echo $value. "<br>";
-}
+echo soma(2, 2, 5);
+echo "<br>";
+echo soma(1, 4, 6);
+echo "<br>";
+echo soma(27, 80, 158);
+echo "<br>";
+var_dump(soma(27, 80, 158));
+echo "<br>";
 
 ?>
