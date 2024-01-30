@@ -1,21 +1,6 @@
 <?php
 
-echo date("d/m/Y H:i:s");
+setlocale(LC_ALL, "pt-BR", "pt_BR.utf-8", "portuguese"); #altera configuracao de localizacao
 
-echo "<br><br>";
-
-echo time();
-
-echo "<br><br>";
-
-$ts = strtotime("2001-09-11");
-$now = strtotime("now");
-$week = strtotime("+1 week");
-
-echo date("l, d/m/Y", $ts);
-echo "<br><br>";
-echo date("l, d/m/Y", $now);
-echo "<br><br>";
-echo date("l, d/m/Y", $week);
-
+echo ucwords(strftime("%A %B"));
 ?>
