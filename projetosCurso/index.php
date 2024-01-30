@@ -1,13 +1,13 @@
 <?php
 
-interface Veiculo { # cria interface
-    public function acelerar($velocidade); # precisa ter metodo acelerar 
+interface Veiculo {
+    public function acelerar($velocidade);
     public function frear($velocidade); 
     public function trocarMarcha($marcha); 
 }
 
-class Civic implements Veiculo { # a classe precisa implementar a interface veiculo
-    public function acelerar($velocidade) # o nome da variavel nao precisa ser o mesmo, somente o do metodo
+abstract class Automovel implements Veiculo { # define classe abstrata
+    public function acelerar($velocidade)
     {
         echo "O veículo acelerou até ". $velocidade . " km/h";
     }
@@ -23,6 +23,14 @@ class Civic implements Veiculo { # a classe precisa implementar a interface veic
     }
 }
 
-$carro = new Civic;
-$carro->trocarMarcha("3");
+class DelRey extends Automovel {
+    public function empurrar() {
+
+    }
+}
+
+$carro = new DelRey();
+$carro->acelerar("200");
+$carro = new Automovel(); # nao pode instanciar classe abstrata
+
 ?>
