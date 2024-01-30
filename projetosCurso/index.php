@@ -1,33 +1,65 @@
 <?php
 
-class Pessoa {
-    public $nome = "Rasmus Lerdorf"; # publico
-    protected $idade = 48; # protegido
-    private $senha = "123456"; # privado
-
-    public function verDados(){
-        echo $this->nome . "<br>";
-        echo $this->idade . "<br>";
-        echo $this->senha . "<br>";
+class Documento {
+    private $numero;
+    
+    public function getNumero() {
+        return $this->numero;
+    }
+    
+    public function setNumero($n) {
+        $this->numero = $n;
     }
 }
 
-class Programador extends Pessoa {  # obtem atributos e metodos da classe pessoa
-    public function verDados(){
+class CPF extends Documento {  # heranca
+    public function validaCpf():bool {
+        $cpf = $this->getNumero();
+
+        //validacao do CPF
+        if(empty($cpf)) {
+            return false;
+        }
         
-        echo get_class($this) . "<br>"; # indica de qual classe está executando
-
-        echo $this->nome . "<br>";
-        echo $this->idade . "<br>";
-        echo $this->senha . "<br>";
+        $cpf = preg_match('/[0-9]/', $cpf)?$cpf:0;
+        
+        $cpf = str_pad($cpf, 11, '0', STR_PAD_LEFT);
+        
+        if (strlen($cpf) != 11) {
+            echo "length";
+            return false;
+        }
+        else if ($cpf == '00000000000' || 
+            $cpf == '11111111111' || 
+            $cpf == '22222222222' || 
+            $cpf == '33333333333' || 
+            $cpf == '44444444444' || 
+            $cpf == '55555555555' || 
+            $cpf == '66666666666' || 
+            $cpf == '77777777777' || 
+            $cpf == '88888888888' || 
+            $cpf == '99999999999') {
+            return false;
+        }
+        else {   
+            for ($t = 9; $t < 11; $t++) {
+                for ($d = 0, $c = 0; $c < $t; $c++) {
+                    $d += $cpf[$c] * (($t + 1) - $c);
+                }
+                $d = ((10 * $d) % 11) % 10;
+                if ($cpf[$c] != $d) {
+                    return false;
+                }
+            }
+        
+            return true;
+        }
     }
 }
 
-$objeto = new Pessoa();
-$programador = new Programador();
+$doc = new CPF();
 
-$objeto->verDados(); # o metodo é publico
-echo "<br>";
-$programador->verDados() # nao herda o atributo senha
+$doc->setNumero("427937900");
+var_dump($doc->validaCpf());
 
 ?>
