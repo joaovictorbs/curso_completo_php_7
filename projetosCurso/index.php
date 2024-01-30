@@ -1,6 +1,15 @@
 <?php
 
-setlocale(LC_ALL, "pt-BR", "pt_BR.utf-8", "portuguese"); #altera configuracao de localizacao
+$dt = new DateTime(); # instancia da classe
 
-echo ucwords(strftime("%A %B"));
+$periodo = new DateInterval("P15D"); # pega intervalo 15 dias
+
+echo $dt->format("d/m/Y H:i:s"); # acessa metodo classe
+
+$dt->add($periodo); # adiciona data / soma 15 dias 
+
+echo "<br>";
+
+echo $dt->format("d/m/Y H:i:s"); # acessa metodo classe
+
 ?>
