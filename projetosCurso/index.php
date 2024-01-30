@@ -1,21 +1,21 @@
 <?php
 
-function test($callback) {
-    //Processo lento
-
-    $callback();
-}
-
-test(function(){    #anonima 
-    echo "Terminou";
-});
+echo date("d/m/Y H:i:s");
 
 echo "<br><br>";
 
-$fn = function($a){ #anonima
-    var_dump($a);
-};
+echo time();
 
-$fn("Olá!");
+echo "<br><br>";
+
+$ts = strtotime("2001-09-11");
+$now = strtotime("now");
+$week = strtotime("+1 week");
+
+echo date("l, d/m/Y", $ts);
+echo "<br><br>";
+echo date("l, d/m/Y", $now);
+echo "<br><br>";
+echo date("l, d/m/Y", $week);
 
 ?>
