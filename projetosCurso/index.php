@@ -1,36 +1,47 @@
 <?php
 
-interface Veiculo {
-    public function acelerar($velocidade);
-    public function frear($velocidade); 
-    public function trocarMarcha($marcha); 
+abstract class Animal {
+    public function som() {
+        return "Falar";
+    }
+
+    public function mover() {
+        return "Anda";
+    }
 }
 
-abstract class Automovel implements Veiculo { # define classe abstrata
-    public function acelerar($velocidade)
-    {
-        echo "O veículo acelerou até ". $velocidade . " km/h";
+class cachorro extends Animal {
+    public function som(){ # metodo de mesmo nome
+        return "Late";
+    }
+}
+
+class Gato extends Animal {
+    public function som() {
+        return "Mia";
+    }
+}
+
+class Passaro extends Animal {
+    public function som() {
+        return "Canta";
     }
     
-    public function frear($velocidade)
-    {
-        echo "O veículo freou até ". $velocidade . " km/h";
-    }
-    
-    public function trocarMarcha($marcha)
-    {
-        echo "O veículo engatou para a marcha ". $marcha; 
+    public function mover() {
+        return "Voa e " . parent::mover();  # se refere a classe pai
     }
 }
 
-class DelRey extends Automovel {
-    public function empurrar() {
+$cachorro = new Cachorro();
+$gato = new Gato();
+$passaro = new Passaro();
 
-    }
-}
-
-$carro = new DelRey();
-$carro->acelerar("200");
-$carro = new Automovel(); # nao pode instanciar classe abstrata
-
+echo $cachorro->som() . "<br>";
+echo $cachorro->mover() . "<br>";
+echo "------------------------------<br>";
+echo $gato->som() . "<br>";
+echo $gato->mover() . "<br>";
+echo "------------------------------<br>";
+echo $passaro->som() . "<br>";
+echo $passaro->mover() . "<br>";
 ?>
