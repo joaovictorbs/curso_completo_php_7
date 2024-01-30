@@ -1,58 +1,33 @@
 <?php
 
-class Endereco {
-    private $logradouro;
-    private $numero;
-    private $cidade;
+class Pessoa {
+    public $nome = "Rasmus Lerdorf"; # publico
+    protected $idade = 48; # protegido
+    private $senha = "123456"; # privado
 
-    public function __construct($a, $b, $c) { # metodo construtor / quando chama a classe
-        $this->logradouro   = $a;
-        $this->numero       = $b;
-        $this->cidade       = $c;
-    }
-
-    public function __destruct() # metodo desconstruir / quando remove a classe da memoria
-    {
-        var_dump("Chamou o desconstruir");
-    }
-
-    public function __toString()
-    {
-        return $this->logradouro.", ".$this->numero.", ".$this->cidade;
-    }
-
-    public function getLogradouro() {
-        return $this->logradouro;
-    }
-    
-    public function setLogradouro($logradouro) {
-        $this->logradouro = $logradouro;
-    }
-
-    public function getNumero() {
-        return $this->numero;
-    }
-    
-    public function setNumero($numero) {
-        $this->numero = $numero;
-    }
-
-    public function getCidade() {
-        return $this->cidade;
-    }
-    
-    public function setCidade($cidade) {
-        $this->cidade = $cidade;
+    public function verDados(){
+        echo $this->nome . "<br>";
+        echo $this->idade . "<br>";
+        echo $this->senha . "<br>";
     }
 }
 
-$meuEndereco = new Endereco("Rua Teste da Teste Teste", "123", "Teste");
+class Programador extends Pessoa {  # obtem atributos e metodos da classe pessoa
+    public function verDados(){
+        
+        echo get_class($this) . "<br>"; # indica de qual classe está executando
 
-var_dump($meuEndereco);
-echo "<br><br>";
-echo($meuEndereco);
-echo "<br><br>";
-unset($meuEndereco);
+        echo $this->nome . "<br>";
+        echo $this->idade . "<br>";
+        echo $this->senha . "<br>";
+    }
+}
 
+$objeto = new Pessoa();
+$programador = new Programador();
+
+$objeto->verDados(); # o metodo é publico
+echo "<br>";
+$programador->verDados() # nao herda o atributo senha
 
 ?>
