@@ -1,15 +1,18 @@
 <?php
 
-$dt = new DateTime(); # instancia da classe
+class Pessoa {
 
-$periodo = new DateInterval("P15D"); # pega intervalo 15 dias
+    public $nome; # atributo
 
-echo $dt->format("d/m/Y H:i:s"); # acessa metodo classe
+    public function falar() { # metodo
+        return "Meu nome é " . $this->nome; # acessa atributo dentro de classe
+    }
+}
 
-$dt->add($periodo); # adiciona data / soma 15 dias 
 
-echo "<br>";
 
-echo $dt->format("d/m/Y H:i:s"); # acessa metodo classe
+$joao = new Pessoa;
+$joao->nome = "João"; # associa nome a atributo que é publico
+echo $joao->falar();
 
 ?>
