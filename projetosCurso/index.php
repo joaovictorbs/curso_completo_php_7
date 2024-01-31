@@ -1,47 +1,20 @@
 <?php
 
-abstract class Animal {
-    public function som() {
-        return "Falar";
-    }
-
-    public function mover() {
-        return "Anda";
-    }
-}
-
-class cachorro extends Animal {
-    public function som(){ # metodo de mesmo nome
-        return "Late";
-    }
-}
-
-class Gato extends Animal {
-    public function som() {
-        return "Mia";
-    }
-}
-
-class Passaro extends Animal {
-    public function som() {
-        return "Canta";
+function incluirClasses($nomeClasse) {
+    if (file_exists($nomeClasse . ".php") === true) { # verifica se o arquivo existe
+        require_once($nomeClasse . ".php");
     }
     
-    public function mover() {
-        return "Voa e " . parent::mover();  # se refere a classe pai
-    }
 }
 
-$cachorro = new Cachorro();
-$gato = new Gato();
-$passaro = new Passaro();
+spl_autoload_register('incluirClasses'); # funcao autoload, recebe nome da classe chamada
+spl_autoload_register(function($nomeClasse) {
+    if (file_exists("abstracts" . DIRECTORY_SEPARATOR . $nomeClasse . ".php") === true) {
+        require_once("abstracts" . DIRECTORY_SEPARATOR . $nomeClasse . ".php");
+    }
+});
 
-echo $cachorro->som() . "<br>";
-echo $cachorro->mover() . "<br>";
-echo "------------------------------<br>";
-echo $gato->som() . "<br>";
-echo $gato->mover() . "<br>";
-echo "------------------------------<br>";
-echo $passaro->som() . "<br>";
-echo $passaro->mover() . "<br>";
+$carro = new DelRey();
+$carro->acelerar(80);
+
 ?>
