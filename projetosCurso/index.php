@@ -1,6 +1,6 @@
 <?php
 
-$conn = new PDO("mysql:dbname=dbphp7;host=localhost", "root", ""); # identificamos o tipo de banco, nome do banco e o host
+$conn = new PDO("sqlsrv:database=dbphp7;server=localhost\SQLEXPRESS;ConnectionPooling=0", "root", ""); # tipo de conexao sql server
 
 $stmt = $conn->prepare("SELECT * FROM tb_usuarios ORDER BY usu_login");
 
