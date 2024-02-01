@@ -50,7 +50,6 @@ class Usuario {
     }
 
     public function loadById($id) { # carrega usuario
-
         $sql = new Sql();
 
         # passa parametro id
@@ -67,8 +66,45 @@ class Usuario {
             $this->setUsuDtCadastro(new DateTime($row['usu_dt_cadastro'])); # formata data
 
         }
-
     }
+
+    public static function getList() { # metodo pode ser estatico pois nao tem associacao ao proprio objeto
+        $sql = new Sql();
+
+        return $sql->select("SELECT * FROM tb_usuarios ORDER BY usu_login");
+    }
+
+    public static function search($login) {
+        $sql = new Sql();
+
+        return $sql->select("SELECT * FROM tb_usuarios WHERE usu_login LIKE :login ORDER BY usu_login", array(
+            ':login'=>"%$login%"
+        ));
+    }
+
+    public function login($login, $password) {
+        $sql = new Sql();
+
+        # passa parametro id
+        $result = $sql->select("SELECT * FROM tb_usuarios WHERE usu_login = :login AND usu_senha = :password", array(
+            ":login"=>$login,
+            ":password"=>$password,
+        ));
+
+        if (count($result) > 0) {
+            $row = $result[0];
+
+            $this->setUsuId($row['usu_id']);
+            $this->setUsuLogin($row['usu_login']);
+            $this->setUsuSenha($row['usu_senha']);
+            $this->setUsuDtCadastro(new DateTime($row['usu_dt_cadastro'])); # formata data
+
+        }
+        else {
+            throw new Exception("Login e/ou senhas inválidos", 1);
+        }
+    }
+
 
 }
 
