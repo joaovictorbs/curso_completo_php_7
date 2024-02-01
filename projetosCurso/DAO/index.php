@@ -1,11 +1,10 @@
 <?php
 
-require_once("config.php"); # obtem arquivos de classes
+require_once("config.php");
 
-$sql = new Sql(); # pega classe php
+$usuario = new Usuario;
+$usuario->loadById(3);
 
-$usuarios = $sql->select("SELECT * FROM tb_usuarios");
-
-echo json_encode($usuarios);
+echo $usuario; # chama o toString
 
 ?>
