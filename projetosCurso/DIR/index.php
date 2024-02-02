@@ -1,19 +1,27 @@
 <?php
 
-$link = ""; # url de arquivo para download
+$dir1 = "folder_01";
+$dir2 = "folder_02";
 
-$content = file_get_contents($link); # pega conteudo do arquivo
+if (!is_dir($dir1)) mkdir($dir1);
+if (!is_dir($dir2)) mkdir($dir2);
 
-$parse = parse_url($link); # divide url em partes
+$filename = "README.txt";
 
-$basename = basename($parse["path"]); # retorna componente final da url / retorna a url
+if (!file_exists($dir1 . DIRECTORY_SEPARATOR . $filename)) {
 
-$file = fopen($basename, "w+"); # cria copia do arquivo no servidor
+    $file = fopen($dir1 . DIRECTORY_SEPARATOR . $filename, "w+");
 
-fwrite($file, $content);
+    fwrite($file, date("Y-m-d H:i:s"));
 
-fclose($file);
+    fclose($file);
+}
+
+rename(
+    $dir1 . DIRECTORY_SEPARATOR . $filename,
+    $dir2 . DIRECTORY_SEPARATOR . $filename
+);
+
+echo "Arquivo movido com sucesso!";
 
 ?>
-
-<img src="<?=$basename?>">
