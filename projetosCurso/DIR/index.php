@@ -1,27 +1,22 @@
 <?php
 
-$dir1 = "folder_01";
-$dir2 = "folder_02";
+$cep = "01310100"; # CEP
 
-if (!is_dir($dir1)) mkdir($dir1);
-if (!is_dir($dir2)) mkdir($dir2);
+$link = "viacep.com.br/ws/$cep/json/"; # consulta cep Via CEP
 
-$filename = "README.txt";
+$ch = curl_init($link); # inicia sessao no cURL
 
-if (!file_exists($dir1 . DIRECTORY_SEPARATOR . $filename)) {
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  # configura opções para sessão do cURL / transferencia e resposta
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);  # verifica certificado SSL
 
-    $file = fopen($dir1 . DIRECTORY_SEPARATOR . $filename, "w+");
+$response = curl_exec($ch);
 
-    fwrite($file, date("Y-m-d H:i:s"));
+$data = json_decode($response, true); # transforma em array
 
-    fclose($file);
-}
+print_r($data);
 
-rename(
-    $dir1 . DIRECTORY_SEPARATOR . $filename,
-    $dir2 . DIRECTORY_SEPARATOR . $filename
-);
+echo "<br><br>";
 
-echo "Arquivo movido com sucesso!";
+print_r($data['localidade']);
 
 ?>
