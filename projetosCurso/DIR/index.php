@@ -1,22 +1,19 @@
 <?php
 
-$cep = "01310100"; # CEP
+$data = array(
+    "empresa"=>"Teste Cookie"
+);
 
-$link = "viacep.com.br/ws/$cep/json/"; # consulta cep Via CEP
+setcookie("NOME_DO_COOKIE", json_encode($data), time() + 3600);
 
-$ch = curl_init($link); # inicia sessao no cURL
+echo "OK";
 
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  # configura opções para sessão do cURL / transferencia e resposta
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);  # verifica certificado SSL
+echo  "<br><br>";
 
-$response = curl_exec($ch);
+if (isset($_COOKIE["NOME_DO_COOKIE"])) { # recupera dados do cookie
+    $obj = json_decode($_COOKIE["NOME_DO_COOKIE"]);
 
-$data = json_decode($response, true); # transforma em array
-
-print_r($data);
-
-echo "<br><br>";
-
-print_r($data['localidade']);
+    echo $obj->empresa;
+}
 
 ?>
