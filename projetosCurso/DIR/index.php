@@ -1,34 +1,19 @@
-<form method="POST" enctype="multipart/form-data">  <!-- dados binarios -->
-
-    <input type="file" name="fileUpload">
-    <br><br>
-    <button type="submit">Send</button>
-
-</form>
-
 <?php
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+$link = ""; # url de arquivo para download
 
-    $file = $_FILES["fileUpload"]; # pega arquivo do input
+$content = file_get_contents($link); # pega conteudo do arquivo
 
-    if ($file["error"]) { # verifica se ocorreu algum erro no upload
-        throw new Exception("Error: " . $file["error"]);
-    }
+$parse = parse_url($link); # divide url em partes
 
-    $dirUploads = "uploads";
+$basename = basename($parse["path"]); # retorna componente final da url / retorna a url
 
-    if (!is_dir($dirUploads)) { # verifica existencia do diretorio
-        mkdir($dirUploads); 
-    }
+$file = fopen($basename, "w+"); # cria copia do arquivo no servidor
 
-    if (move_uploaded_file($file["tmp_name"], $dirUploads . DIRECTORY_SEPARATOR . $file["name"])) { # upload do arquivo / informa pasta temporaria e nome do arquivo
-        echo "Upload realizado com sucesso!";
-    } 
-    else {
-        throw new Exception("Não foi possível realizar o upload.");
-    }
+fwrite($file, $content);
 
-}
+fclose($file);
 
 ?>
+
+<img src="<?=$basename?>">
