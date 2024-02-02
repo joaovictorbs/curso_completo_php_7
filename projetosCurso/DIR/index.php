@@ -1,37 +1,44 @@
 <?php
 
-$name = "images";
+require_once("config.php");
 
-if (!is_dir($name)) { # verifica se é diretorio
-    mkdir($name); # cria diretorio
-    echo "Diretório: '$name' criado com sucesso!";
-}
-else {
-    rmdir($name); # remove diretorio
-    echo "O diretório: '$name' já existe!";
-}
 
-$images = scandir($name); # escaneia diretorio
-$data = array();
+/* Cria novo arquivo
+$file = fopen("log.txt", "w+"); # cria arquivo / caminho | vai ser write e criar arquivo novo
+$file = fopen("log.txt", "a+"); # adiciona informacao ao arquivo
 
-foreach ($images as $img) {
-    if (!in_array($img, array(".", ".."))) { # se encontrar os pontos pula
-        $filename = "images" . DIRECTORY_SEPARATOR . $img;
-        
-        $info = pathinfo($filename); # obtem informacoes do arquivo no diretorio
+fwrite($file, date("Y-m-d H:i:s") . "\r\n"); # escreve no arquivo
 
-        $info["size"] = filesize($filename); # adiciona tamanho do arquivo em bytes
-        
-        $info["modified"] = date("d/m/Y H:i:s", filemtime($filename)); # data de modificacao
-        
-        $info["url"] = "http://localhost/DIR/".str_replace("\\", "/",$filename); # endereco
+fclose($file); # fecha manipulador
 
-        array_push($data, $info);
-    }
+echo "Arquivo criado com sucesso!";
+*/
+
+$sql = new Sql();
+
+$usuarios = $sql->select("SELECT * FROM tb_usuarios ORDER BY usu_login");
+
+$headers = array();
+
+foreach ($usuarios[0] as $key => $value) {
+    array_push($headers, ucfirst($key));    # colunas para csv
 }
 
-echo json_encode($data);
+$file = fopen("usuarios.csv", "w+");
+
+fwrite($file, implode(",", $headers) . "\r\n"); # cabecalho
+
+foreach ($usuarios as $row) {
+    $data = array();
+
+    foreach ($row as $key => $value) {
+        array_push($data, $value);
+    } // End foreach de coluna
+
+    fwrite($file, implode(",", $data) . "\r\n"); # dados das colunas
+} // End foreach de linha
 
 
+fclose($file);
 
 ?>
