@@ -1,46 +1,34 @@
+<form method="POST" enctype="multipart/form-data">  <!-- dados binarios -->
+
+    <input type="file" name="fileUpload">
+    <br><br>
+    <button type="submit">Send</button>
+
+</form>
+
 <?php
 
-$filename = "usuarios.csv";
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-if(file_exists($filename)) { # verifica existencia do arquivo
-    $file = fopen($filename, "r"); # informa leitura
-  
-    $headers = explode(",", fgets($file)); # captura linha por linha
-  
-    $data = array();
+    $file = $_FILES["fileUpload"]; # pega arquivo do input
 
-    while ($row = fgets($file)) { # verifica se existem mais linhas
-        
-        $rowData = explode(",", $row);
-        $linha = array();
-
-        for ($i = 0; $i < count($headers); $i++) { # verifica cada coluna do header
-            $linha[$headers[$i]] = $rowData[$i]; # busca pelo valor associando a chave que é o header
-        }
-        
-        array_push($data, $linha); # array chave e valor
-
+    if ($file["error"]) { # verifica se ocorreu algum erro no upload
+        throw new Exception("Error: " . $file["error"]);
     }
 
-    fclose($file);
+    $dirUploads = "uploads";
 
-    echo json_encode($data);
+    if (!is_dir($dirUploads)) { # verifica existencia do diretorio
+        mkdir($dirUploads); 
+    }
+
+    if (move_uploaded_file($file["tmp_name"], $dirUploads . DIRECTORY_SEPARATOR . $file["name"])) { # upload do arquivo / informa pasta temporaria e nome do arquivo
+        echo "Upload realizado com sucesso!";
+    } 
+    else {
+        throw new Exception("Não foi possível realizar o upload.");
+    }
+
 }
 
-
-$filename = "images/teste.png";
-
-$base64 = base64_encode(file_get_contents($filename)); # pega informacao do arquivo e codifica em base64
-
-$fileinfo = new finfo(FILEINFO_MIME_TYPE); # recupera tipo de arquivo
-
-$mimetype = $fileinfo->file($filename);
-
-$base64encode = "data:" . $mimetype . ";base64," . $base64;
-
 ?>
-<br><br>
-<a href="<?=$base64encode?>" target="_blank"> Link Para Imagem </a>
-<br><br>
-<img src="<?=$base64encode?>">
-<br><br>
