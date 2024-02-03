@@ -1,16 +1,19 @@
 <?php
 
-header("Content-Type: image/png");
+$image = imagecreatefrompng("images/teste.png"); # recupera imagem
 
-$image = imagecreate(256, 256); # associa a imagem por completo / largura e altura
+$titleColor = imagecolorallocate($image, 0, 0, 0);
+$gray = imagecolorallocate($image, 100, 100, 100);
 
-$black = imagecolorallocate($image, 0, 0, 0); # cores da imagem / padrao rgb
-$red = imagecolorallocate($image, 255, 0, 0);
+imagestring($image, 5, 450, 150, "CERTIFICADO", $titleColor);
+imagestring($image, 5, 440, 350, "Teste do Teste", $titleColor);
+imagestring($image, 3, 440, 370, utf8_decode("Concluído em: "). date("d/m/Y"), $titleColor);
 
-imagestring($image, 5, 60, 120, "Curso PHP", $red); # escreve na imagem
+header("Content-type: imagem/png");
 
-imagepng($image); # gera imagem em png /renderiza imagem
+imagepng($image, "certificado-".date("Y-m-d").".png", 10); # salva arquivo / altera qualidade
 
 imagedestroy($image);
+
 
 ?>
