@@ -1,31 +1,23 @@
 <?php
 
-function trataNome($name) {
-    if (!$name) {
-        throw new Exception("Nenhum nome foi informado.", 1);
-    }
-
-    echo ucfirst($name)."<br>";
+function exception_handler($exception) {
+    echo json_encode(array(
+        "code" => $exception->getCode(),
+        "message" => $exception->getMessage(),
+        "file" => $exception->getFile(),
+        "line" => $exception->getLine()
+    ));
 }
 
-try { # tenta executar
-    
-    trataNome("joão");
-    trataNome("");
-}
-catch (Exception $e) { # captura erro
- 
-    echo json_encode(array( # cria json para criar mensagem dinamica
-        "message"=>$e->getMessage(),
-        "line"=>$e->getLine(),
-        "file"=>$e->getFile(),
-        "code"=>$e->getCode(),
-     ));
+set_exception_handler("exception_handler");
 
-}
-finally { # opcional / sempre executa por ultimo
-    echo "<br>";
-    echo "Executou o bloco try";
-}
+// Tentativa de dividir por zero
+echo 100 / 0;
+
+error_reporting(E_ALL & ~E_NOTICE); # mensagens de erro que podem aparecer ou não / mostra erros e nao mostra noticias
+
+$nome = $_GET["nome"];
+
+echo $nome;
 
 ?>
