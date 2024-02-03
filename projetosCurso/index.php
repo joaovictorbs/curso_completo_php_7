@@ -1,18 +1,31 @@
 <?php
 
-$conn = new PDO("mysql:dbname=dbphp7;host=localhost", "root", "");
+function trataNome($name) {
+    if (!$name) {
+        throw new Exception("Nenhum nome foi informado.", 1);
+    }
 
-$conn->beginTransaction(); # inicia transacao / é amarrada a conexao
+    echo ucfirst($name)."<br>";
+}
 
-$stmt = $conn->prepare("DELETE FROM tb_usuarios WHERE usu_id = ?");
+try { # tenta executar
+    
+    trataNome("joão");
+    trataNome("");
+}
+catch (Exception $e) { # captura erro
+ 
+    echo json_encode(array( # cria json para criar mensagem dinamica
+        "message"=>$e->getMessage(),
+        "line"=>$e->getLine(),
+        "file"=>$e->getFile(),
+        "code"=>$e->getCode(),
+     ));
 
-$id = 5;
-
-$stmt->execute(array($id)); # vai identificando em sequencia pelo ?
-
-// $conn->rollBack(); # interrompe a transacao
-$conn->commit(); # confirma transacao
-
-echo "Toda a transação ocorreu corretamente!"
+}
+finally { # opcional / sempre executa por ultimo
+    echo "<br>";
+    echo "Executou o bloco try";
+}
 
 ?>
