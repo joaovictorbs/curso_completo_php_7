@@ -1,23 +1,16 @@
 <?php
 
-function exception_handler($exception) {
-    echo json_encode(array(
-        "code" => $exception->getCode(),
-        "message" => $exception->getMessage(),
-        "file" => $exception->getFile(),
-        "line" => $exception->getLine()
-    ));
-}
+header("Content-Type: image/png");
 
-set_exception_handler("exception_handler");
+$image = imagecreate(256, 256); # associa a imagem por completo / largura e altura
 
-// Tentativa de dividir por zero
-echo 100 / 0;
+$black = imagecolorallocate($image, 0, 0, 0); # cores da imagem / padrao rgb
+$red = imagecolorallocate($image, 255, 0, 0);
 
-error_reporting(E_ALL & ~E_NOTICE); # mensagens de erro que podem aparecer ou não / mostra erros e nao mostra noticias
+imagestring($image, 5, 60, 120, "Curso PHP", $red); # escreve na imagem
 
-$nome = $_GET["nome"];
+imagepng($image); # gera imagem em png /renderiza imagem
 
-echo $nome;
+imagedestroy($image);
 
 ?>
