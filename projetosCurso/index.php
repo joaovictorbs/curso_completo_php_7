@@ -1,17 +1,17 @@
 <?php
 
-$image = imagecreatefrompng("images/teste.png"); # recupera imagem
+$image = imagecreatefrompng("DIR/images/teste.png"); # recupera imagem
 
 $titleColor = imagecolorallocate($image, 0, 0, 0);
 $gray = imagecolorallocate($image, 100, 100, 100);
 
-imagestring($image, 5, 450, 150, "CERTIFICADO", $titleColor);
-imagestring($image, 5, 440, 350, "Teste do Teste", $titleColor);
-imagestring($image, 3, 440, 370, utf8_decode("Concluído em: "). date("d/m/Y"), $titleColor);
+imagettftext($image, 32, 0, 320, 250, $titleColor, "fonts". DIRECTORY_SEPARATOR . "Bevan" . DIRECTORY_SEPARATOR . "Bevan-Regular.ttf", "CERTIFICADO");
+imagettftext($image, 32, 0, 3750, 350, $titleColor, "fonts". DIRECTORY_SEPARATOR . "Paylball" . DIRECTORY_SEPARATOR . "Paylball-Regular.ttf", "Teste do Teste");
+imagestring($image, 3, 0, 440, 370, utf8_decode("Concluído em: "). date("d/m/Y"), $titleColor);
 
 header("Content-type: imagem/png");
 
-imagepng($image, "certificado-".date("Y-m-d").".png", 10); # salva arquivo / altera qualidade
+imagepng($image); # salva arquivo / altera qualidade
 
 imagedestroy($image);
 
