@@ -1,18 +1,10 @@
 <?php
 
-$id = (isset($_GET["id"])) ? $_GET["id"] : 1;
+$pasta = "arquivos";
+$permissao = "0755";
 
-if (!is_numeric($id) || strlen($id) > 5) { # nao deve deixar passar mais informacoes que o ID
-    exit("Somente valores numéricos");
-}
+if (!is_dir($pasta)) mkdir($pasta, $permissao);
 
-$conn = mysqli_connect("localhost", "root", "", "teste"); # deve ser PDO
+echo "Diretório criado com sucesso!";
 
-$sql = "SELECT * FROM tb_usuarios WHERE usu_id = $id";
-
-$exec = mysqli_query($conn, $sql);
-
-while ($resultado = mysqli_fetch_object($exec)) {
-    var_dump($resultado);
-}
 ?>
