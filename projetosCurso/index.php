@@ -1,20 +1,18 @@
 <?php
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $cmd = escapeshellcmd($_POST['cmd']);
+$id = (isset($_GET["id"])) ? $_GET["id"] : 1;
 
-    echo "<pre>";
-
-    $comando = system($cmd, $retorno); # executa comando no sistema operacional e retorna resultado
-    
-    echo "</pre>";
+if (!is_numeric($id) || strlen($id) > 5) { # nao deve deixar passar mais informacoes que o ID
+    exit("Somente valores numéricos");
 }
 
+$conn = mysqli_connect("localhost", "root", "", "teste"); # deve ser PDO
 
+$sql = "SELECT * FROM tb_usuarios WHERE usu_id = $id";
+
+$exec = mysqli_query($conn, $sql);
+
+while ($resultado = mysqli_fetch_object($exec)) {
+    var_dump($resultado);
+}
 ?>
-<form method="post">
-    
-    <input type="text" name="cmd">
-    <button type="submit"> Enviar </button>
-
-</form>
