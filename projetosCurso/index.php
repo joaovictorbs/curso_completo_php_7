@@ -1,10 +1,15 @@
+<form method="post">
+    <input type="text" name="busca">
+    <button type="submit"> Enviar </button>
+</form>
+
 <?php
 
-$pasta = "arquivos";
-$permissao = "0755";
+if (isset($_POST['busca'])) {
 
-if (!is_dir($pasta)) mkdir($pasta, $permissao);
-
-echo "Diretório criado com sucesso!";
+    echo strip_tags($_POST['busca'], "<strong>");
+    echo "<br>";
+    echo htmlentities($_POST['busca']);
+}
 
 ?>
